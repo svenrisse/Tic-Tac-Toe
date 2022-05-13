@@ -1,4 +1,4 @@
-.gameBoardContainer {
+.squares {
     height: 20vh;
     width: 20vw;
     display: grid;
@@ -6,4 +6,11 @@
     align-items: center;
     justify-items: center;
     font-size: 30px;
+}
+
+.square {
+    height: 40px;
+    width: 40px;
+    background-color: aquamarine;
+    text-align: center;
 }

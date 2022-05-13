@@ -1,34 +1,58 @@
-/* Module for gameboard */
+// player factory function
+    const createPlayer = (name, marker) => {
+        return {name, marker}
+    }
+
+// module for gameboard
 
 const gameBoard = (() => {
-    let board = ["x", "o", "x", "x", "o", "x", "x", "o", "x"]
+    
+    // generate board array
+
+    let board = ["x","x","o","x","o","x","x","o","o"]
+        
+    // display squares for each array item
+
+    let squares = document.querySelector(".squares")
+
+    board.forEach(() => {
+        let square = document.createElement("button")
+        square.classList.add("square")
+        squares.appendChild(square)
+    })
+    
+    // add event listener to each square
+    let turn = 1
+
+    document.querySelectorAll(".square").forEach(item => {
+        item.addEventListener("click", event => {
+            if (turn % 2 == 0 && item.textContent == "" ) {
+                item.textContent = "o"
+                turn++
+
+            } else if (item.textContent == "") {
+                item.textContent = "x"
+                turn++
+            }
+        })
+    })
+    
+    // return 
     return {
         board
     }
 })()
 
-/* Module to change the fields in gameboard */
 
-const displayController = (() => {
+
+const game = (() => {
+    
+    // define players
+
 
 })()
 
-/* Factory function to create Player object */
 
-const Player = (name, symbol) => {
-    const getName = () => name
-    const getSymbol = () => symbol
-    return {name, symbol}
-}
 
-let gameBoardContainer = document.getElementById("gameBoardContainer")
-function drawBoard() {
-    for (let i = 0;i<gameBoard.board.length;i++) {
-        let field = document.createElement("div")
-        field.classList.add("field")
-        field.textContent = gameBoard.board[i]
-        gameBoardContainer.appendChild(field)
-    }
-}
 
-drawBoard()
+
