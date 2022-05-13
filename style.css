@@ -1,0 +1,9 @@
+.gameBoardContainer {
+    height: 20vh;
+    width: 20vw;
+    display: grid;
+    grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    font-size: 30px;
+}
