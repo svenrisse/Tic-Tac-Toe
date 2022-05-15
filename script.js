@@ -13,79 +13,77 @@ const gameBoard = (() => {
     
     // generate board array
 
-    let board = ["x","x","o","x","o","x","x","o","o"]
-        
+    let board = ["","","","","","","","",""]
+    console.log(board)
+    // define players
+
+    let playerOne = createPlayer("playerOne", "x", [])
+    let playerTwo = createPlayer("playerTwo", "o", [])
+
+    // win conditions
+
+    const winCondition = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ]
+    console.log(winCondition[0[0]])  
     // display squares for each array item
 
     let squares = document.querySelector(".squares")
 
-    board.forEach(() => {
+    for (let i = 0; i<board.length; i++) {
         let square = document.createElement("button")
         square.classList.add("square")
-        squares.appendChild(square)
-    })
+        square.setAttribute("id", i + 1)
+        squares.appendChild(square) 
+    }
     
     // add event listener to each square
-    let turn = 1
-    
-    document.querySelectorAll(".square").forEach(item => {
+    let currentPlayer = playerOne
+    Array.from(squares.children).forEach((item, index) => {
         item.addEventListener("click", () => {
-            if (turn % 2 == 0 && item.textContent == "" ) {
-                item.textContent = "o"
-                playerOne.
-                turn++
+            if (currentPlayer == playerTwo && item.textContent == "" ) {
+                item.textContent = playerTwo.marker
+                board.splice(index, 1, playerTwo.marker)
+                console.log(board)
+                currentPlayer = playerOne
 
-            } else if (item.textContent == "") {
-                item.textContent = "x"
-                turn++
+            } else if (currentPlayer == playerOne && item.textContent == "") {
+                item.textContent = playerOne.marker
+                board.splice(index, 1, playerOne.marker)
+                console.log(board)
+                currentPlayer = playerTwo
             }
         })
     })
-    
+
+    // winning condition
+
+    function winCheck() {
+        winCondition.forEach((item,index) => {
+            
+        })
+    }
     // return 
     return {
         board,
-        turn
     }
 })()
 
 
 
-const game = (() => {
-    
-    // define players
-
-    const playerOne = createPlayer("playerOne", "x", [""])
-    const playerTwo = createPlayer("playerTwo", "o", [""])
-    
-    // win conditions
-
-    const winCondition = [
-        "1, 2, 3",
-        "4, 5, 6",
-        "7, 8, 9",
-        "1, 4, 7",
-        "2, 5, 8",
-        "3, 6, 9",
-        "1, 5, 9",
-        "3, 5, 7"
-    ]
-    // add clicked square to array of player 
-    
-
+const displayController = (() => {
     
     
     
-    // check if last move was a winning move
-
-
-
-    // return 
-    return {
-        playerOne,
-        playerTwo
-    }
 })()
+
 
 
 
