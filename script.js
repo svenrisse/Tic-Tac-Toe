@@ -1,5 +1,6 @@
 // player factory function
-    const createPlayer = (name, marker, played = []) => {
+
+const createPlayer = (name, marker, played = []) => {
         return {
             name,
             marker,
@@ -32,7 +33,7 @@ const gameBoard = (() => {
         [0,4,8],
         [2,4,6]
     ]
-    console.log(winCondition[0[0]])  
+    console.log(winCondition[0][2])  
     // display squares for each array item
 
     let squares = document.querySelector(".squares")
@@ -48,31 +49,35 @@ const gameBoard = (() => {
     let currentPlayer = playerOne
     Array.from(squares.children).forEach((item, index) => {
         item.addEventListener("click", () => {
-            if (currentPlayer == playerTwo && item.textContent == "" ) {
+            if (currentPlayer == playerTwo && item.textContent == "" && gameOver == false) {
                 item.textContent = playerTwo.marker
                 board.splice(index, 1, playerTwo.marker)
-                console.log(board)
+                winCheck()
                 currentPlayer = playerOne
 
-            } else if (currentPlayer == playerOne && item.textContent == "") {
+            } else if (currentPlayer == playerOne && item.textContent == "" && gameOver == false) {
                 item.textContent = playerOne.marker
                 board.splice(index, 1, playerOne.marker)
-                console.log(board)
+                winCheck()
                 currentPlayer = playerTwo
             }
         })
     })
 
     // winning condition
-
+    let gameOver = false
     function winCheck() {
         winCondition.forEach((item,index) => {
-            
+            if (board[item[0]] == currentPlayer.marker && board[item[1]] == currentPlayer.marker && board[item[2]] == currentPlayer.marker) {
+                console.log("winner determined")
+                gameOver = true
+            }
         })
     }
     // return 
     return {
         board,
+        gameOver
     }
 })()
 
