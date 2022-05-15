@@ -1,10 +1,11 @@
 // player factory function
 
-const createPlayer = (name, marker, played = []) => {
+const createPlayer = (name, marker, played = [], color) => {
         return {
             name,
             marker,
-            played
+            played,
+            color
         }
     }
 
@@ -15,11 +16,11 @@ const gameBoard = (() => {
     // generate board array
 
     let board = ["","","","","","","","",""]
-    console.log(board)
+    
     // define players
 
-    let playerOne = createPlayer("playerOne", "x", [])
-    let playerTwo = createPlayer("playerTwo", "o", [])
+    let playerOne = createPlayer("playerOne", "x", [], "#10B981")
+    let playerTwo = createPlayer("playerTwo", "o", [], "#F43F5E")
 
     // win conditions
 
@@ -33,7 +34,7 @@ const gameBoard = (() => {
         [0,4,8],
         [2,4,6]
     ]
-    console.log(winCondition[0][2])  
+     
     // display squares for each array item
 
     let squares = document.querySelector(".squares")
@@ -47,22 +48,28 @@ const gameBoard = (() => {
     
     // add event listener to each square
     let currentPlayer = playerOne
+    let remainingMoves = 9
     Array.from(squares.children).forEach((item, index) => {
         item.addEventListener("click", () => {
-            if (currentPlayer == playerTwo && item.textContent == "" && gameOver == false) {
-                item.textContent = playerTwo.marker
-                board.splice(index, 1, playerTwo.marker)
+            if (item.textContent == "" && gameOver == false) {
+                item.textContent = currentPlayer.marker
+                board.splice(index, 1, currentPlayer.marker)
+                item.style.backgroundColor = currentPlayer.color
+                remainingMoves--
                 winCheck()
-                currentPlayer = playerOne
-
-            } else if (currentPlayer == playerOne && item.textContent == "" && gameOver == false) {
-                item.textContent = playerOne.marker
-                board.splice(index, 1, playerOne.marker)
-                winCheck()
-                currentPlayer = playerTwo
-            }
+                nextPlayer()
+            } 
         })
     })
+    // function to go to next player
+
+    function nextPlayer() {
+        if (currentPlayer == playerOne) {
+            currentPlayer = playerTwo
+        } else {
+            currentPlayer = playerOne
+        }
+    }
 
     // winning condition
     let gameOver = false
@@ -71,8 +78,24 @@ const gameBoard = (() => {
             if (board[item[0]] == currentPlayer.marker && board[item[1]] == currentPlayer.marker && board[item[2]] == currentPlayer.marker) {
                 console.log("winner determined")
                 gameOver = true
-            }
+                printWinner()
+            } else if (remainingMoves == 0 && gameOver == false) {
+                gameOver = true
+                printTie()
+            } 
         })
+    }
+
+    // print winner
+    let gameState = document.querySelector(".gameState")
+    function printWinner() {
+        gameState.textContent = currentPlayer.name + " has won!"
+    }
+    
+    // Function to print Tie if no winner was determined after 9 moves
+
+    function printTie() {
+        gameState.textContent = "A Tie was determined!"
     }
     // return 
     return {
