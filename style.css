@@ -6,21 +6,54 @@ body {
     margin: 0;
     height: 100vh;
     width: 100vw;
+    background-color: #F8FAFC;
 }
 
+.playerSection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0px 5vw;
+}
+
+.gameBoardSection {
+
+}
 .squares {
-    height: 20vh;
-    width: 20vw;
+    height: 40vh;
+    width: 25vw;
     display: grid;
     grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
-    align-items: center;
-    justify-items: center;
     font-size: 30px;
 }
 
 .square {
-    height: 40px;
-    width: 40px;
-    background-color: aquamarine;
+    border: 0;
     text-align: center;
+    background-color: #F8FAFC;
 }
+
+#square2 {
+    border-left: 1px solid #D6D3D1;
+    border-right: 1px solid #D6D3D1;
+}
+
+#square4 {
+    border-top: 1px solid #D6D3D1;
+    border-bottom: 1px solid #D6D3D1;
+}
+
+#square5 {
+    border: 1px solid #D6D3D1;
+}
+
+#square6 {
+    border-top: 1px solid #D6D3D1;
+    border-bottom: 1px solid #D6D3D1;
+}
+
+#square8 {
+    border-left: 1px solid #D6D3D1;
+    border-right: 1px solid #D6D3D1;
+}
+
+

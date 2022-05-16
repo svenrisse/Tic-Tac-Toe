@@ -42,7 +42,7 @@ const gameBoard = (() => {
     for (let i = 0; i<board.length; i++) {
         let square = document.createElement("button")
         square.classList.add("square")
-        square.setAttribute("id", i + 1)
+        square.setAttribute("id", "square" + (i + 1))
         squares.appendChild(square) 
     }
     
@@ -54,13 +54,16 @@ const gameBoard = (() => {
             if (item.textContent == "" && gameOver == false) {
                 item.textContent = currentPlayer.marker
                 board.splice(index, 1, currentPlayer.marker)
-                item.style.backgroundColor = currentPlayer.color
+                item.style.color = currentPlayer.color
                 remainingMoves--
+                console.log(currentPlayer)
                 winCheck()
                 nextPlayer()
+                displayController.printCurrentPlayer()
             } 
         })
     })
+    
     // function to go to next player
 
     function nextPlayer() {
@@ -90,6 +93,7 @@ const gameBoard = (() => {
     let gameState = document.querySelector(".gameState")
     function printWinner() {
         gameState.textContent = currentPlayer.name + " has won!"
+        gameState.style.color = currentPlayer.color
     }
     
     // Function to print Tie if no winner was determined after 9 moves
@@ -100,7 +104,11 @@ const gameBoard = (() => {
     // return 
     return {
         board,
-        gameOver
+        gameOver,
+        currentPlayer,
+        playerOne,
+        playerTwo,
+        nextPlayer
     }
 })()
 
@@ -108,7 +116,29 @@ const gameBoard = (() => {
 
 const displayController = (() => {
     
+    // function to highlight current player 
+
+    let player1 = document.getElementById("player1")
+    let player2 = document.getElementById("player2")
+    function printCurrentPlayer() {
+        if (gameBoard.currentPlayer == gameBoard.playerOne) {
+            player1.style.backgroundColor = gameBoard.playerOne.color
+            player2.style.backgroundColor = "#F8FAFC;"
+        } else {
+            player1.style.backgroundColor = "#F8FAFC;"
+            player2.style.backgroundColor = gameBoard.playerTwo.color
+        }
     
+    }
+
+    // return
+
+    return {
+        printCurrentPlayer,
+        player1,
+        player2
+
+    }
     
 })()
 
