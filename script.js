@@ -8,7 +8,7 @@ const createPlayer = (name, marker, played = [], color) => {
             color
         }
     }
-
+let currentPlayer
 // module for gameboard
 
 const gameBoard = (() => {
@@ -19,8 +19,8 @@ const gameBoard = (() => {
     
     // define players
 
-    let playerOne = createPlayer("playerOne", "x", [], "#10B981")
-    let playerTwo = createPlayer("playerTwo", "o", [], "#F43F5E")
+    let playerOne = createPlayer("Player One", "x", [], "#10B981")
+    let playerTwo = createPlayer("Player Two", "o", [], "#F43F5E")
 
     // win conditions
 
@@ -47,7 +47,7 @@ const gameBoard = (() => {
     }
     
     // add event listener to each square
-    let currentPlayer = playerOne
+    currentPlayer = playerOne
     let remainingMoves = 9
     Array.from(squares.children).forEach((item, index) => {
         item.addEventListener("click", () => {
@@ -56,10 +56,10 @@ const gameBoard = (() => {
                 board.splice(index, 1, currentPlayer.marker)
                 item.style.color = currentPlayer.color
                 remainingMoves--
-                console.log(currentPlayer)
+                displayController.printCurrentPlayer()
                 winCheck()
                 nextPlayer()
-                displayController.printCurrentPlayer()
+                
             } 
         })
     })
@@ -81,26 +81,14 @@ const gameBoard = (() => {
             if (board[item[0]] == currentPlayer.marker && board[item[1]] == currentPlayer.marker && board[item[2]] == currentPlayer.marker) {
                 console.log("winner determined")
                 gameOver = true
-                printWinner()
+                displayController.printWinner()
             } else if (remainingMoves == 0 && gameOver == false) {
                 gameOver = true
-                printTie()
+                displayController.printTie()
             } 
         })
     }
 
-    // print winner
-    let gameState = document.querySelector(".gameState")
-    function printWinner() {
-        gameState.textContent = currentPlayer.name + " has won!"
-        gameState.style.color = currentPlayer.color
-    }
-    
-    // Function to print Tie if no winner was determined after 9 moves
-
-    function printTie() {
-        gameState.textContent = "A Tie was determined!"
-    }
     // return 
     return {
         board,
@@ -108,7 +96,7 @@ const gameBoard = (() => {
         currentPlayer,
         playerOne,
         playerTwo,
-        nextPlayer
+        nextPlayer,
     }
 })()
 
@@ -121,22 +109,37 @@ const displayController = (() => {
     let player1 = document.getElementById("player1")
     let player2 = document.getElementById("player2")
     function printCurrentPlayer() {
-        if (gameBoard.currentPlayer == gameBoard.playerOne) {
+        if (currentPlayer == gameBoard.playerOne) {
             player1.style.backgroundColor = gameBoard.playerOne.color
-            player2.style.backgroundColor = "#F8FAFC;"
+            player2.style.backgroundColor = "#F8FAFC"
         } else {
-            player1.style.backgroundColor = "#F8FAFC;"
+            player1.style.backgroundColor = "#F8FAFC"
             player2.style.backgroundColor = gameBoard.playerTwo.color
         }
     
     }
 
+    // print winner
+    let gameState = document.querySelector(".gameState")
+    function printWinner() {
+        gameState.textContent = currentPlayer.name + " has won!"
+        gameState.style.color = currentPlayer.color
+    }
+    
+    // function to print Tie if no winner was determined after 9 moves
+
+    function printTie() {
+        gameState.textContent = "A Tie was determined!"
+    }
+
+    // reset button
+
     // return
 
     return {
         printCurrentPlayer,
-        player1,
-        player2
+        printWinner,
+        printTie
 
     }
     
