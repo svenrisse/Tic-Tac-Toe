@@ -9,6 +9,7 @@ const createPlayer = (name, marker, played = [], color) => {
         }
     }
 let currentPlayer
+
 // module for gameboard
 
 const gameBoard = (() => {
@@ -97,6 +98,7 @@ const gameBoard = (() => {
         playerOne,
         playerTwo,
         nextPlayer,
+        squares,
     }
 })()
 
@@ -109,7 +111,7 @@ const displayController = (() => {
     let player1 = document.getElementById("player1")
     let player2 = document.getElementById("player2")
     function printCurrentPlayer() {
-        if (currentPlayer == gameBoard.playerOne) {
+        if (currentPlayer == gameBoard.playerTwo) {
             player1.style.backgroundColor = gameBoard.playerOne.color
             player2.style.backgroundColor = "#F8FAFC"
         } else {
@@ -133,7 +135,8 @@ const displayController = (() => {
     }
 
     // reset button
-
+    let resetButton = document.querySelector(".resetButton")
+    
     // return
 
     return {
