@@ -1,10 +1,9 @@
 // player factory function
 
-const createPlayer = (name, marker, played = [], color) => {
+const createPlayer = (name, marker, color) => {
         return {
             name,
             marker,
-            played,
             color
         }
     }
@@ -20,8 +19,8 @@ const gameBoard = (() => {
     
     // define players
 
-    let playerOne = createPlayer("Player One", "x", [], "#10B981")
-    let playerTwo = createPlayer("Player Two", "o", [], "#F43F5E")
+    let playerOne = createPlayer("Player One", "x", "#10B981")
+    let playerTwo = createPlayer("Player Two", "o", "#F43F5E")
 
     // win conditions
 
@@ -80,7 +79,6 @@ const gameBoard = (() => {
     function winCheck() {
         winCondition.forEach((item,index) => {
             if (board[item[0]] == currentPlayer.marker && board[item[1]] == currentPlayer.marker && board[item[2]] == currentPlayer.marker) {
-                console.log("winner determined")
                 gameOver = true
                 displayController.printWinner()
             } else if (remainingMoves == 0 && gameOver == false) {
