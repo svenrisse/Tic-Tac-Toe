@@ -1,6 +1,7 @@
 // player factory function
 
 const createPlayer = (name, marker, color) => {
+    
         return {
             name,
             marker,
@@ -43,6 +44,7 @@ const gameBoard = (() => {
     let squares = document.querySelector(".squares")
 
     for (let i = 0; i<board.length; i++) {
+        
         let square = document.createElement("button")
         square.classList.add("square")
         square.setAttribute("id", "square" + (i + 1))
@@ -54,6 +56,7 @@ const gameBoard = (() => {
     currentPlayer = playerOne
 
     Array.from(squares.children).forEach((item, index) => {
+
         item.addEventListener("click", () => {
             if (item.textContent == "" && gameOver == false) {
                 item.textContent = currentPlayer.marker
@@ -64,7 +67,6 @@ const gameBoard = (() => {
                 displayController.printCurrentPlayer()
                 winCheck()
                 nextPlayer()
-                
             } 
         })
     })
@@ -72,6 +74,7 @@ const gameBoard = (() => {
     // function to go to next player
 
     function nextPlayer() {
+
         if (currentPlayer == playerOne) {
             currentPlayer = playerTwo
         } else {
@@ -81,7 +84,9 @@ const gameBoard = (() => {
 
     // winning condition
     function winCheck() {
+
         winCondition.forEach((item,index) => {
+
             if (board[item[0]] == currentPlayer.marker && board[item[1]] == currentPlayer.marker && board[item[2]] == currentPlayer.marker) {
                 gameOver = true
                 displayController.printWinner()
@@ -113,7 +118,9 @@ const displayController = (() => {
 
     let player1 = document.getElementById("player1")
     let player2 = document.getElementById("player2")
+
     function printCurrentPlayer() {
+
         if (currentPlayer == gameBoard.playerTwo) {
             player1.style.backgroundColor = gameBoard.playerOne.color
             player2.style.backgroundColor = "#F8FAFC"
@@ -127,7 +134,9 @@ const displayController = (() => {
 
     // print winner
     let gameState = document.querySelector(".gameState")
+
     function printWinner() {
+
         gameState.textContent = currentPlayer.name + " has won!"
         gameState.style.color = currentPlayer.color
         if(currentPlayer == gameBoard.playerOne) {
@@ -147,7 +156,9 @@ const displayController = (() => {
 
     // reset button
     let resetButton = document.querySelector(".resetButton")
+
     resetButton.addEventListener("click", () => {
+
         for (let i = 0;i<gameBoard.board.length;i++) {
             gameBoard.board[i] = ""
         }
