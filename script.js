@@ -7,7 +7,10 @@ const createPlayer = (name, marker, color) => {
             color
         }
     }
+
 let currentPlayer
+let remainingMoves = 0
+let gameOver = false
 
 // module for gameboard
 
@@ -47,8 +50,9 @@ const gameBoard = (() => {
     }
     
     // add event listener to each square
+
     currentPlayer = playerOne
-    let remainingMoves = 9
+
     Array.from(squares.children).forEach((item, index) => {
         item.addEventListener("click", () => {
             if (item.textContent == "" && gameOver == false) {
@@ -56,6 +60,7 @@ const gameBoard = (() => {
                 board.splice(index, 1, currentPlayer.marker)
                 item.style.color = currentPlayer.color
                 remainingMoves--
+                console.log(remainingMoves)
                 displayController.printCurrentPlayer()
                 winCheck()
                 nextPlayer()
@@ -75,7 +80,6 @@ const gameBoard = (() => {
     }
 
     // winning condition
-    let gameOver = false
     function winCheck() {
         winCondition.forEach((item,index) => {
             if (board[item[0]] == currentPlayer.marker && board[item[1]] == currentPlayer.marker && board[item[2]] == currentPlayer.marker) {
@@ -97,6 +101,7 @@ const gameBoard = (() => {
         playerTwo,
         nextPlayer,
         squares,
+        remainingMoves
     }
 })()
 
@@ -143,6 +148,19 @@ const displayController = (() => {
     // reset button
     let resetButton = document.querySelector(".resetButton")
     resetButton.addEventListener("click", () => {
+        for (let i = 0;i<gameBoard.board.length;i++) {
+            gameBoard.board[i] = ""
+        }
+        remainingMoves = 9
+        gameOver = false
+        currentPlayer = gameBoard.playerOne
+        player1.style.backgroundColor = gameBoard.playerOne.color
+        player2.style.backgroundColor = "#F8FAFC"
+        gameState.textContent = ""
+        gameState.style.color = ""
+        Array.from(gameBoard.squares.children).forEach((item, index) => {
+            item.textContent = ""
+        })
         
     })
     
