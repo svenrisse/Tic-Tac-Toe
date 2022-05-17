@@ -1,7 +1,7 @@
 // player factory function
 
 const createPlayer = (name, marker, color) => {
-    
+
         return {
             name,
             marker,
@@ -155,7 +155,7 @@ const displayController = (() => {
     }
 
     // reset button
-    let resetButton = document.querySelector(".resetButton")
+    const resetButton = document.querySelector(".resetButton")
 
     resetButton.addEventListener("click", () => {
 
