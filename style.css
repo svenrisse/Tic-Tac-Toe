@@ -26,6 +26,7 @@ body {
     height: 5vh;
     width: 10vw;
     border-radius: 10px;
+    background-color: #10B981;
 }
 
 .playerSection #player2 {

@@ -120,12 +120,20 @@ const displayController = (() => {
         }
     
     }
+    
 
     // print winner
     let gameState = document.querySelector(".gameState")
     function printWinner() {
         gameState.textContent = currentPlayer.name + " has won!"
         gameState.style.color = currentPlayer.color
+        if(currentPlayer == gameBoard.playerOne) {
+            player1.style.backgroundColor = gameBoard.playerOne.color
+            player2.style.backgroundColor = "#F8FAFC"
+        } else {
+            player2.style.backgroundColor = gameBoard.playerTwo.color
+            player1.style.backgroundColor = "#F8FAFC"
+        }
     }
     
     // function to print Tie if no winner was determined after 9 moves
@@ -136,6 +144,9 @@ const displayController = (() => {
 
     // reset button
     let resetButton = document.querySelector(".resetButton")
+    resetButton.addEventListener("click", () => {
+        
+    })
     
     // return
 
